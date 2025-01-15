@@ -17,8 +17,9 @@ get_vowels("sky") # []
 get_vowels("football") # [o, o, a]
 
 and some text
-
-
-
-yuppy                 .
+          .
 """
+
+def extract():
+
+    

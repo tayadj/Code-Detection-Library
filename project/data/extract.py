@@ -39,7 +39,7 @@ def extract(text):
         code - list of strings, each representing a block of code found in the input text.
     """
 
-    pattern = r'^\s*(' + '|'.join(keywords['python'] + keywords['cpp'] + keywords['java']) + r')\b'
+    pattern = r'^\s*(' + '|'.join(keywords['python'] + keywords['cpp'] + keywords['java']) + r')\b|^\s*\w+\s*=|^\s*\w+\s*\(.*\)\s*|^\s*\w+\s*\(.*=.*\)\s*'
     pattern_compiled = re.compile(pattern, re.MULTILINE)
 
     code = []
@@ -69,6 +69,7 @@ def extract(text):
             current_code = []
 
     if flag:
+
         code.append('\n'.join(current_code))
 
     return code
