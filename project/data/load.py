@@ -5,7 +5,7 @@ def load(path):
     """
     Load data from .csv file
     
-    Params: 
+    Parameters: 
         path - path to .csv file
     
     Return:
