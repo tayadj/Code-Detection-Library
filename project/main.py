@@ -19,7 +19,3 @@ get_vowels("football") # [o, o, a]
 and some text
           .
 """
-
-def extract():
-
-    
