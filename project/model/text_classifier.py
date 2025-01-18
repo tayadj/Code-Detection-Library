@@ -4,6 +4,7 @@ from collections import Counter
 import pandas as pd
 import numpy as np
 import warnings
+import string
 import math
 import re
 
@@ -17,13 +18,23 @@ class TextClassifier(Base):
 
         super().__init__(data_path, hidden_dimension, stops_coefficient)
 
-    def normalize_text(self, text):
-     
-        text = text.lower()
-        text = re.sub(r'[^\w\s\']', '', text)
-        text = ' '.join([word for word in text.split() if word not in self.stops])
-
+    def expand_contractions(text):
+        
+        for contraction, expanded in contractions.items():
+            text = re.sub(r'\b{}\b'.format(contraction), expanded, text)
         return text
+
+    def normalize_text(self, text):
+        
+        text = text.lower()
+        text = re.sub('<.*?.', '', text)
+        text = re.sub('(http|www|https)\S+', '', text)
+        text = re.sub(r'([{}])'.format(re.escape(string.punctuation)), r' \1 ', text)
+        text = re.sub(r'\s+', ' ', text).strip()
+        text = ' '.join([word for word in text.split() if word not in self.stops])        
+    
+        return text
+
 
     def convert_text(self, text):
         
