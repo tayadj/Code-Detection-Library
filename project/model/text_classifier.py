@@ -127,40 +127,35 @@ class TextClassifier(Base):
         self.bias_output -= learning_rate * gradient_bias_output
         self.bias_hidden -= learning_rate * gradient_bias_hidden 
 
-    def process(self, data, learning_rate, learn=True):
-
-        loss = 0
-        correct = 0
-        quantity = 0
-
-        for value, label in zip(self.data_raw[['Text']].values.flatten(), self.data[['Class']].values.flatten()):
-
-            for value_ in value.split('.'):
-
-                quantity += 1
-                inputs = self.convert_text(value_)
-                
-                target = self.topics.index(label)            
-
-                hidden, output = self.forward(inputs)
-
-                probabilities = self.activation(output)
-            
-                loss += self.loss(probabilities[target])[0]
-                correct += int(np.argmax(probabilities) == target)
-
-                if learn:
-            
-                    probabilities[target] -= 1
-                    self.backward(probabilities, learning_rate)
-
-        return loss / quantity, correct / quantity
-
     def learn(self, epochs=100, learning_rate=0.001):
 
         for epoch in range (epochs):
 
-            coefficient_loss, coefficient_accuracy = self.process(self.data, learning_rate)
+            loss = 0
+            correct = 0
+            quantity = 0
+
+            for value, label in zip(self.data[['Text']].values.flatten(), self.data[['Class']].values.flatten()):
+
+                for value_ in value.split('.'):
+
+                    quantity += 1
+                    inputs = self.convert_text(value_)
+                
+                    target = self.topics.index(label)            
+
+                    hidden, output = self.forward(inputs)
+
+                    probabilities = self.activation(output)
+            
+                    loss += self.loss(probabilities[target])[0]
+                    correct += int(np.argmax(probabilities) == target)
+
+                    probabilities[target] -= 1
+                    self.backward(probabilities, learning_rate)
+
+            coefficient_loss = loss / quantity
+            coefficient_accuracy = correct / quantity
 
             if epoch % (epochs / 10) == (epochs / 10 - 1):
 

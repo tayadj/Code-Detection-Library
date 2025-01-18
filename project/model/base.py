@@ -46,10 +46,6 @@ class Base(ABC):
         pass
 
     @abstractmethod
-    def process(self, data, learning_rate, learn=True):
-        pass
-
-    @abstractmethod
     def learn(self, epochs=100, learning_rate=0.001):
         pass
 
