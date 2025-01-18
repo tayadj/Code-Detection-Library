@@ -18,12 +18,6 @@ class TextClassifier(Base):
 
         super().__init__(data_path, hidden_dimension, stops_coefficient)
 
-    def expand_contractions(text):
-        
-        for contraction, expanded in contractions.items():
-            text = re.sub(r'\b{}\b'.format(contraction), expanded, text)
-        return text
-
     def normalize_text(self, text):
         
         text = text.lower()
@@ -33,7 +27,6 @@ class TextClassifier(Base):
         text = ' '.join([word for word in text.split() if word not in self.stops])        
     
         return text
-
 
     def convert_text(self, text):
         
@@ -136,7 +129,7 @@ class TextClassifier(Base):
         self.bias_output -= learning_rate * gradient_bias_output
         self.bias_hidden -= learning_rate * gradient_bias_hidden 
 
-    def learn(self, epochs=100, learning_rate=0.001):
+    def learn(self, epochs=100, learning_rate=0.001, ngram_size=5):
 
         for epoch in range (epochs):
 
@@ -146,7 +139,7 @@ class TextClassifier(Base):
 
             for value, label in zip(self.data[['Text']].values.flatten(), self.data[['Class']].values.flatten()):
 
-                for value_ in [ngram for n in range(1, min(len(value)+1, 10)) for ngram in self.generate_ngrams(value, n)]:
+                for value_ in [ngram for n in range(1, min(len(value), ngram_size) + 1) for ngram in self.generate_ngrams(value, n)]:
 
                     quantity += 1
                     inputs = self.convert_text(value_)
@@ -182,41 +175,8 @@ class TextClassifier(Base):
 
     def save(self, path='./model/source/text_classifier.npz'):
 
-        np.savez(path, 
-        weights_input_to_hidden = self.weights_input_to_hidden, 
-        weights_hidden_to_output = self.weights_hidden_to_output, 
-        weights_hidden_to_hidden = self.weights_hidden_to_hidden, 
-        bias_hidden = self.bias_hidden, 
-        bias_output = self.bias_output, 
-        topics = self.topics,
-        vocabulary = self.vocabulary,
-        dimension_hidden = [self.dimension_hidden],
-        stops = self.stops,
-        stops_coefficient = [self.stops_coefficient]
-        )
+        super().save(path)
 
     def load(self, path='./model/source/text_classifier.npz'):
 
-        with np.load('./model/source/text_classifier.npz') as loaded:
-
-            self.weights_input_to_hidden = loaded['weights_input_to_hidden']
-            self.weights_hidden_to_output = loaded['weights_hidden_to_output']
-            self.weights_hidden_to_hidden = loaded['weights_hidden_to_hidden']
-            self.bias_hidden = loaded['bias_hidden']
-            self.bias_output = loaded['bias_output']
-
-            self.topics = list(loaded['topics'])
-            self.topics_size = len(self.topics)
-
-            self.vocabulary = loaded['vocabulary']
-            self.vocabulary_size = len(self.vocabulary)
-
-            self.word_to_index = { word : index for index, word in enumerate(self.vocabulary) }
-            self.index_to_word = { index : word for index, word in enumerate(self.vocabulary) }
-
-            self.stops = loaded['stops']
-            self.stops_coefficient = loaded['stops_coefficient'][0]
-
-            self.dimension_input = self.vocabulary_size
-            self.dimension_output = self.topics_size
-            self.dimension_hidden = loaded['dimension_hidden'][0]
+        super().load(path)

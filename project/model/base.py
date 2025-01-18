@@ -57,17 +57,50 @@ class Base(ABC):
         pass
 
     @abstractmethod
-    def learn(self, epochs=100, learning_rate=0.001):
+    def learn(self, epochs=100, learning_rate=0.001, ngram_size=10):
         pass
 
     @abstractmethod
     def predict(self, value):
         pass
 
-    @abstractmethod
-    def save(self, path='./data/model.npz'):
-        pass
+    def save(self, path):
 
-    @abstractmethod
-    def load(self, path='./data/model.npz'):
-        pass
+        np.savez(path, 
+        weights_input_to_hidden = self.weights_input_to_hidden, 
+        weights_hidden_to_output = self.weights_hidden_to_output, 
+        weights_hidden_to_hidden = self.weights_hidden_to_hidden, 
+        bias_hidden = self.bias_hidden, 
+        bias_output = self.bias_output, 
+        topics = self.topics,
+        vocabulary = self.vocabulary,
+        dimension_hidden = [self.dimension_hidden],
+        stops = self.stops,
+        stops_coefficient = [self.stops_coefficient]
+        )
+
+    def load(self, path):
+
+        with np.load(path) as loaded:
+
+            self.weights_input_to_hidden = loaded['weights_input_to_hidden']
+            self.weights_hidden_to_output = loaded['weights_hidden_to_output']
+            self.weights_hidden_to_hidden = loaded['weights_hidden_to_hidden']
+            self.bias_hidden = loaded['bias_hidden']
+            self.bias_output = loaded['bias_output']
+
+            self.topics = list(loaded['topics'])
+            self.topics_size = len(self.topics)
+
+            self.vocabulary = loaded['vocabulary']
+            self.vocabulary_size = len(self.vocabulary)
+
+            self.word_to_index = { word : index for index, word in enumerate(self.vocabulary) }
+            self.index_to_word = { index : word for index, word in enumerate(self.vocabulary) }
+
+            self.stops = loaded['stops']
+            self.stops_coefficient = loaded['stops_coefficient'][0]
+
+            self.dimension_input = self.vocabulary_size
+            self.dimension_output = self.topics_size
+            self.dimension_hidden = loaded['dimension_hidden'][0]
