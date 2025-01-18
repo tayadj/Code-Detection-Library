@@ -17,6 +17,17 @@ class Base(ABC):
         self.load_vocabulary()
         self.load_network(hidden_dimension)
 
+    def generate_ngrams(self, text, n):
+
+        words = text.split()
+        ngrams = []
+
+        for i in range(len(words) - n + 1):
+
+            ngrams.append(' '.join(words[i:i + n]))
+
+        return ngrams
+
     @abstractmethod
     def normalize_text(self, text):
         pass

@@ -16,7 +16,6 @@ class TextClassifier(Base):
     def __init__(self, hidden_dimension=64, stops_coefficient=0.8, data_path='./data/source/text.csv'):
 
         super().__init__(data_path, hidden_dimension, stops_coefficient)
-    
 
     def normalize_text(self, text):
      
@@ -137,7 +136,7 @@ class TextClassifier(Base):
 
             for value, label in zip(self.data[['Text']].values.flatten(), self.data[['Class']].values.flatten()):
 
-                for value_ in value.split('.'):
+                for value_ in self.generate_ngrams(value, 1) + [value]:
 
                     quantity += 1
                     inputs = self.convert_text(value_)

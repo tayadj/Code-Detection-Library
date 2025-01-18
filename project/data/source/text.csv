@@ -1,3 +1,11 @@
 Text,Class
-"I am happy",Text
-"print('Hello, World!')",Code
+"Hello, how are you?",Message
+"public class HelloWorld { public static void main(String[] args) { System.out.println(""Hello, World!""); } }",Code
+The quick brown fox jumps over the lazy dog.,Message
+"def greet(name): return f""Hello, {name}!""",Code
+What time is it?,Message
+for (int i = 0; i < 10; i++) { System.out.println(i); },Code
+Can you help me with this problem?,Message
+"print(""Hello, World!"")",Code
+I need to schedule a meeting.,Message
+if (x > 0) { return x; } else { return -x; },Code
