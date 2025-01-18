@@ -27,8 +27,7 @@ class TextClassifier(Base):
     def normalize_text(self, text):
         
         text = text.lower()
-        text = re.sub('<.*?.', '', text)
-        text = re.sub('(http|www|https)\S+', '', text)
+        text = re.sub(r'(http|www|https)\S+', '', text)
         text = re.sub(r'([{}])'.format(re.escape(string.punctuation)), r' \1 ', text)
         text = re.sub(r'\s+', ' ', text).strip()
         text = ' '.join([word for word in text.split() if word not in self.stops])        
@@ -147,7 +146,7 @@ class TextClassifier(Base):
 
             for value, label in zip(self.data[['Text']].values.flatten(), self.data[['Class']].values.flatten()):
 
-                for value_ in self.generate_ngrams(value, 1) + [value]:
+                for value_ in [ngram for n in range(1, min(len(value)+1, 10)) for ngram in self.generate_ngrams(value, n)]:
 
                     quantity += 1
                     inputs = self.convert_text(value_)
