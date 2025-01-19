@@ -136,3 +136,150 @@ for person in sortedPeople {
     else:
         return n * factorial(n-1)
 ",Python
+"protocol Describable {
+    func describe() -> String
+}
+
+extension Int: Describable {
+    func describe() -> String {
+        return ""This is an integer: \(self)""
+    }
+}
+
+extension String: Describable {
+    func describe() -> String {
+        return ""This is a string: \(self)""
+    }
+}
+
+let number: Int = 42
+let text: String = ""Hello, Swift!""
+
+print(number.describe())
+print(text.describe())
+",Swift
+"def read_file(file_path):
+    with open(file_path, 'r') as file:
+        content = file.read()
+    return content
+
+def write_file(file_path, content):
+    with open(file_path, 'w') as file:
+        file.write(content)
+
+file_path = 'example.txt'
+write_file(file_path, 'Hello, World!')
+print(read_file(file_path))
+",Python
+"import java.util.Arrays;
+import java.util.List;
+
+public class LambdaExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList(""Alice"", ""Bob"", ""Charlie"");
+
+        names.forEach(name -> System.out.println(name));
+    }
+}
+",Java
+"#include <iostream>
+
+template <typename T>
+T add(T a, T b) {
+    return a + b;
+}
+
+int main() {
+    std::cout << ""Sum of integers: "" << add(3, 4) << std::endl;
+    std::cout << ""Sum of doubles: "" << add(3.5, 4.5) << std::endl;
+    return 0;
+}
+",C++
+"def my_decorator(func):
+    def wrapper():
+        func()
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print(""Hello!"")
+
+say_hello()
+",Python
+"let names = [""Alice"", ""Bob"", ""Charlie""]
+
+let sortedNames = names.sorted { $0 < $1 }
+print(""Sorted Names: \(sortedNames)"")
+",Swift
+"class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        raise NotImplementedError(""Subclass must implement abstract method"")
+
+class Dog(Animal):
+    def speak(self):
+        return f""{self.name} says Woof!""
+
+class Cat(Animal):
+    def speak(self):
+        return f""{self.name} says Meow!""
+
+animals = [Dog(""Buddy""), Cat(""Whiskers"")]
+for animal in animals:
+    print(animal.speak())
+",Python
+"import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class FileReadExample {
+    public static void main(String[] args) {
+        String filePath = ""example.txt"";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+",Java
+"#include <iostream>
+
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    int x = 10, y = 20;
+    std::cout << ""Before swap: x = "" << x << "", y = "" << y << std::endl;
+    swap(&x, &y);
+    std::cout << ""After swap: x = "" << x << "", y = "" << y << std::endl;
+    return 0;
+}
+",C++
+"import Foundation
+
+func fetchData(completion: @escaping (String) -> Void) {
+    DispatchQueue.global().async {
+        sleep(2)
+        let data = ""Fetched data from server""
+        DispatchQueue.main.async {
+            completion(data)
+        }
+    }
+}
+
+print(""Fetching data..."")
+fetchData { data in
+    print(data)
+}
+print(""This will print before data is fetched"")
+",Swift

@@ -28,7 +28,7 @@ class TextClassifier(Base):
 
             for value, label in zip(self.data[['Text']].values.flatten(), self.data[['Class']].values.flatten()):
 
-                for value_ in [ngram for n in range(1, min(len(value), ngram_size) + 1) for ngram in self.generate_ngrams(value, n)]:
+                for value_ in [ngram for n in range(1, min(len(value), ngram_size) + 1) for ngram in self.generate_ngrams(value, n)] + [value]:
 
                     quantity += 1
                     inputs = self.convert_text(value_)
