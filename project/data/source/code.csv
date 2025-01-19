@@ -1,0 +1,78 @@
+Code,Class
+"#include <iostream>
+#include <vector>
+#include <algorithm>
+
+class Person {
+public:
+    std::string name;
+    int age;
+
+    Person(std::string n, int a) : name(n), age(a) {}
+};
+
+bool compareByAge(const Person &a, const Person &b) {
+    return a.age < b.age;
+}
+
+int main() {
+    std::vector<Person> people = {{""Alice"", 30}, {""Bob"", 25}, {""Charlie"", 35}};
+    
+    std::sort(people.begin(), people.end(), compareByAge);
+
+    for (const auto &person : people) {
+        std::cout << person.name << "" is "" << person.age << "" years old."" << std::endl;
+    }
+
+    return 0;
+}
+",C++
+"class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+def compare_by_age(person):
+    return person.age
+
+people = [Person(""Alice"", 30), Person(""Bob"", 25), Person(""Charlie"", 35)]
+people.sort(key=compare_by_age)
+
+for person in people:
+    print(f""{person.name} is {person.age} years old."")
+",Python
+"import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+class Person {
+    String name;
+    int age;
+
+    Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+class CompareByAge implements Comparator<Person> {
+    public int compare(Person a, Person b) {
+        return a.age - b.age;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Person> people = new ArrayList<>();
+        people.add(new Person(""Alice"", 30));
+        people.add(new Person(""Bob"", 25));
+        people.add(new Person(""Charlie"", 35));
+
+        Collections.sort(people, new CompareByAge());
+
+        for (Person person : people) {
+            System.out.println(person.name + "" is "" + person.age + "" years old."");
+        }
+    }
+}
+",Java
