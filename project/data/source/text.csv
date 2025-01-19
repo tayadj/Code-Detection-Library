@@ -76,6 +76,34 @@ public class Main {
     }
 }
 ",Code
+"import Foundation
+
+class Person {
+    var name: String
+    var age: Int
+
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+}
+
+func compareByAge(_ a: Person, _ b: Person) -> Bool {
+    return a.age < b.age
+}
+
+let people = [
+    Person(name: ""Alice"", age: 30),
+    Person(name: ""Bob"", age: 25),
+    Person(name: ""Charlie"", age: 35)
+]
+
+let sortedPeople = people.sorted(by: compareByAge)
+
+for person in sortedPeople {
+    print(""\(person.name) is \(person.age) years old."")
+}
+",Code
 "In the 21st century, technology has become an integral part of our daily lives. From the moment we wake up to the sound of our smartphone alarms to the time we go to bed after binge-watching our favorite shows on streaming platforms, technology is omnipresent. It has revolutionized the way we communicate, work, and entertain ourselves. However, this technological advancement comes with both benefits and drawbacks.
 
 On the positive side, technology has made communication faster and more efficient. Social media platforms, instant messaging apps, and video conferencing tools have bridged the gap between people living in different parts of the world. Businesses have also benefited from technology through automation, which has increased productivity and reduced operational costs.
@@ -83,3 +111,16 @@ On the positive side, technology has made communication faster and more efficien
 However, the over-reliance on technology has its downsides. The rise of social media has led to issues such as cyberbullying, privacy concerns, and the spread of misinformation. Additionally, the automation of jobs has resulted in unemployment for many workers, particularly in industries that rely heavily on manual labor.
 
 In conclusion, while technology has undoubtedly transformed modern society, it is essential to strike a balance between embracing its benefits and mitigating its negative impacts. As we continue to innovate, we must also consider the ethical implications and strive to create a more inclusive and equitable technological landscape.",Message
+"Hey! Just wanted to check in and see how you're doing. It's been a while since we last caught up, and I miss our conversations. How's everything going on your end? Work, family, and everything else? Let's plan to meet up soon and catch up properly. Maybe grab a coffee or lunch sometime next week? Let me know what works for you. Take care and talk to you soon!",Message
+"Hi there! I hope you're having a great day. I wanted to remind you about our meeting tomorrow at 10 AM. Please make sure to bring all the necessary documents and any updates on the project. If you have any questions or need any help before the meeting, feel free to reach out. Looking forward to seeing you and discussing our progress. Have a wonderful day!",Message
+"Good morning! I hope you slept well. I wanted to share some exciting news with you. I just got promoted at work, and I'm really thrilled about it. It's been a long journey, and I'm grateful for all the support and encouragement you've given me along the way. Let's celebrate this weekend! How about dinner at our favorite restaurant? Let me know if you're free. Have a fantastic day!",Message
+"Hey! I just finished watching that movie you recommended, and I absolutely loved it. The storyline was so captivating, and the acting was top-notch. Thanks for the great suggestion! Do you have any other movie or TV show recommendations? I'm always on the lookout for something new to watch. Let's chat soon and catch up on everything. Take care!",Message
+"Hi! I hope you're doing well. I wanted to ask for your advice on something. I'm thinking about starting a new hobby, and I'm not sure what to choose. I've always been interested in photography, painting, and cooking. Do you have any suggestions or recommendations? I'd love to hear your thoughts and maybe even try something new together. Let's talk soon!",Message
+"Hello! Just a quick message to let you know that I'm thinking of you. I hope everything is going well on your end. If you ever need someone to talk to or just want to hang out, I'm always here for you. Let's plan something fun soon and catch up. Take care and have a great day!",Message
+"Hey! I wanted to share some good news with you. I finally completed that project I've been working on for months. It was a challenging journey, but I'm really proud of the outcome. Thanks for all your support and encouragement. Let's celebrate this achievement together! How about dinner this weekend? Let me know if you're free. Talk to you soon!",Message
+"Hi there! I hope you're having a fantastic day. I wanted to remind you about our upcoming trip next month. Have you started packing yet? If you need any help with planning or packing, just let me know. I'm really looking forward to this adventure and spending some quality time together. Let's make it a trip to remember! Take care and see you soon!",Message
+"Good evening! I hope you had a productive day. I wanted to ask for your help with something. I'm working on a new project, and I could really use your expertise and advice. Can we schedule a time to discuss it in detail? Your input would be invaluable to me. Thanks in advance for your help. Have a great night!",Message
+"Hi! I hope you're doing well. I wanted to ask for your advice on something. I'm thinking about starting a new hobby, and I'm not sure what to choose. I've always been interested in photography, painting, and cooking. Do you have any suggestions or recommendations? I'd love to hear your thoughts and maybe even try something new together. Let's talk soon!",Message
+"Hello! Just a quick message to let you know that I'm thinking of you. I hope everything is going well on your end. If you ever need someone to talk to or just want to hang out, I'm always here for you. Let's plan something fun soon and catch up. Take care and have a great day!",Message
+"Hey! I wanted to share some good news with you. I finally completed that project I've been working on for months. It was a challenging journey, but I'm really proud of the outcome. Thanks for all your support and encouragement. Let's celebrate this achievement together! How about dinner this weekend? Let me know if you're free. Talk to you soon!",Message
+"Hi there! I hope you're having a fantastic day. I wanted to remind you about our upcoming trip next month. Have you started packing yet? If you need any help with planning or packing, just let me know. I'm really looking forward to this adventure and spending some quality time together. Let's make it a trip to remember! Take care and see you soon!",Message

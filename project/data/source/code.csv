@@ -76,3 +76,63 @@ public class Main {
     }
 }
 ",Java
+"import Foundation
+
+class Person {
+    var name: String
+    var age: Int
+
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+}
+
+func compareByAge(_ a: Person, _ b: Person) -> Bool {
+    return a.age < b.age
+}
+
+let people = [
+    Person(name: ""Alice"", age: 30),
+    Person(name: ""Bob"", age: 25),
+    Person(name: ""Charlie"", age: 35)
+]
+
+let sortedPeople = people.sorted(by: compareByAge)
+
+for person in sortedPeople {
+    print(""\(person.name) is \(person.age) years old."")
+}
+",Swift
+"int factorial(int n) {
+    if (n == 0) {
+        return 1;
+    } else {
+        return n * factorial(n-1);
+    }
+}
+",C++
+"public class Factorial {
+    public static int factorial(int n) {
+        if (n == 0) {
+            return 1;
+        } else {
+            return n * factorial(n-1);
+        }
+    }
+}
+",Java
+"func factorial(_ n: Int) -> Int {
+    if n == 0 {
+        return 1
+    } else {
+        return n * factorial(n-1)
+    }
+}
+",Swift
+"def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
+",Python

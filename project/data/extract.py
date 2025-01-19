@@ -24,11 +24,19 @@ keywords = {
         'implements', 'import', 'instanceof', 'int', 'interface', 'long', 'native', 'new', 'null', 'package', 
         'private', 'protected', 'public', 'return', 'short', 'static', 'strictfp', 'super', 'switch', 'synchronized', 
         'this', 'throw', 'throws', 'transient', 'try', 'void', 'volatile', 'while'
+    ],
+    'swift': [
+        'associatedtype', 'class', 'deinit', 'enum', 'extension', 'fileprivate', 'func', 'import', 'init', 'inout', 
+        'internal', 'let', 'open', 'operator', 'private', 'protocol', 'public', 'rethrows', 'static', 'struct', 
+        'subscript', 'typealias', 'var', 'break', 'case', 'continue', 'default', 'defer', 'do', 'else', 'fallthrough', 
+        'for', 'guard', 'if', 'in', 'repeat', 'return', 'switch', 'where', 'while', 'as', 'Any', 'catch', 'false', 
+        'is', 'nil', 'super', 'self', 'Self', 'throw', 'throws', 'true', 'try'
     ]
 }
 
-def extract(text):
 
+
+def extract(text):
     """
     Extract code blocks from a given text based on programming language keywords.
 
@@ -39,16 +47,19 @@ def extract(text):
         code - list of strings, each representing a block of code found in the input text.
     """
 
-    pattern = r'^\s*(' + '|'.join(keywords['python'] + keywords['cpp'] + keywords['java']) + r')\b|^\s*\w+\s*=|^\s*\w+\s*\(.*\)\s*|^\s*\w+\s*\(.*=.*\)\s*'
+    pattern = r'^\s*(' + '|'.join([item for sublist in list(keywords.values()) for item in sublist]) + \
+              r')\b|^\s*\w+\s*=|^\s*\w+\s*\(.*\)\s*|^\s*\w+\s*\(.*=.*\)\s*'
     pattern_compiled = re.compile(pattern, re.MULTILINE)
 
     code = []
     current_code = []
+
     flag = False
+    brace_count = 0
 
     for line in text.split('\n'):
 
-        if pattern_compiled.match(line):
+        if pattern_compiled.match(line) or brace_count > 0:
 
             if not flag:
 
@@ -59,12 +70,15 @@ def extract(text):
 
                 current_code.append(line)
 
+            brace_count += line.count('{') - line.count('}')
+
         else:
 
             if flag:
 
                 code.append('\n'.join(current_code))
                 flag = False
+                brace_count = 0
 
             current_code = []
 
@@ -73,3 +87,4 @@ def extract(text):
         code.append('\n'.join(current_code))
 
     return code
+
