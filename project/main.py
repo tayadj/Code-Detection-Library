@@ -2,20 +2,53 @@ import model
 import data
 import util
 
-text = """
-Example of text                                   :
+import numpy as np
 
-def hello_world():
-    print("Hello, world!")
+text = """Hey! I rewrote your C++ code:
 
-with some text somewhere in the middle
+int main() {
+    std::vector<Person> people = {{""Alice"", 30}, {""Bob"", 25}, {""Charlie"", 35}};
+    std::sort(people.begin(), people.end(), compareByAge);
+    for (const auto &person : people) {
+        std::cout << person.name << "" is "" << person.age << "" years old."" << std::endl;
+    }
+    return 0;
+}
 
-def get_vowels(String):
-    return [each for each in String if each in "aeiou"]
-get_vowels("animal") # [a, i, a]
-get_vowels("sky") # []
-get_vowels("football") # [o, o, a]
+on Python as you asked:
 
-and some text
-          .
+def main():
+    people = [Person(""Alice"", 30), Person(""Bob"", 25), Person(""Charlie"", 35)]
+    people.sort(key=compare_by_age)
+    for person in people:
+        print(f""{person.name} is {person.age} years old."")
+
+
+hope it helps!
 """
+
+class Controller:
+
+    def __init__(self):
+
+        self.text_classifier = model.TextClassifier()
+        self.code_classifier = model.CodeClassifier()
+
+        self.text_classifier.load()
+        self.code_classifier.load()
+
+    def process(self, text):
+
+        segments = []
+
+        for segment in data.extract(text):
+
+            if self.text_classifier.topics[np.argmax(self.text_classifier.predict(segment))] == 'code':
+
+                segments.append(segment)
+
+        for segment in segments:
+
+            label = self.code_classifier.topics[np.argmax(self.code_classifier.predict(segment))]
+
+            print(f"Code segment, {label}\n{segment}\n\n")
