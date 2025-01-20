@@ -1,6 +1,9 @@
-from model import Base, TextClassifier, CodeClassifier
 import pytest
 import numpy
+import sys
+sys.path.append('.')
+
+import model
 
 
 
@@ -16,7 +19,7 @@ import numpy
 ])
 def test_TextClassifier(query, prediction):
 
-    classifier = TextClassifier()
+    classifier = model.TextClassifier()
     classifier.load()
 
     assert classifier.topics[numpy.argmax(classifier.predict(query))] == prediction
@@ -31,7 +34,7 @@ def test_TextClassifier(query, prediction):
 ])
 def test_CodeClassifier(query, prediction):
 
-    classifier = CodeClassifier()
+    classifier = model.CodeClassifier()
     classifier.load()
 
     assert classifier.topics[numpy.argmax(classifier.predict(query))] == prediction
