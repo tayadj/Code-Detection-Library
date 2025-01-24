@@ -13,8 +13,20 @@ warnings.filterwarnings("ignore")
 
 class Base(ABC):
 
+    """
+    Base class for text data processing and neural network training.
+    """
+
     def __init__(self, hidden_dimension, stops_coefficient, data_path):
 
+        """
+        Initializes the class with the given parameters.
+
+        Parameters:
+            hidden_dimension - size of the hidden layer.
+            stops_coefficient - coefficient for determining stop words.
+            data_path - path to .csv file.
+        """
         self.activation = lambda x: np.exp(x) / sum(np.exp(x))
         self.activation_derivative = lambda x: (1 - x ** 2)
         self.loss = lambda x: -np.log(x)
@@ -28,6 +40,16 @@ class Base(ABC):
 
     def generate_ngrams(self, text, n):
 
+        """
+        Generates n-grams from the given text.
+
+        Parameters:
+            text - input text.
+            n - size of the n-grams.
+
+        Returns:
+            ngrams - list of n-grams.
+        """
         words = text.split()
         ngrams = []
 
@@ -38,7 +60,17 @@ class Base(ABC):
         return ngrams
 
     def normalize_text(self, text):
-        
+
+        """
+        Normalizes the given text by converting to lowercase, removing URLs and punctuation, and filtering stop words.
+
+        Parameters:
+            text - input text.
+
+        Returns:
+            text - normalized text.
+        """
+
         text = text.lower()
         text = re.sub(r'(http|www|https)\S+', '', text)
         text = re.sub(r'([{}])'.format(re.escape(string.punctuation)), r' \1 ', text)
@@ -48,6 +80,16 @@ class Base(ABC):
         return text
 
     def convert_text(self, text):
+
+        """
+        Converts the given text into input data for the network.
+
+        Parameters:
+            text - input text.
+
+        Returns:
+            inputs - list of input vectors.
+        """
         
         text = self.normalize_text(text)
         inputs = []
@@ -69,10 +111,21 @@ class Base(ABC):
 
     def load_data(self, path):
 
+        """
+        Loads data from the specified file and normalizes it.
+
+        Parameters:
+            path - path to the .csv file.
+        """
+
         self.data_raw = pd.read_csv(path)
         self.data = self.data_raw.map(self.normalize_text)
 
     def load_vocabulary(self):
+
+        """
+        Loads the vocabulary and stop words from the data.
+        """
 
         self.vocabulary = sorted(list(set([word for text in self.data.values.flatten() for word in text.split()])))
         self.vocabulary_size = len(self.vocabulary)
@@ -88,6 +141,13 @@ class Base(ABC):
         self.index_to_word = { index : word for index, word in enumerate(self.vocabulary) }
 
     def load_network(self, dimension_hidden):
+
+        """
+        Initializes the network weights and biases.
+
+        Parameters:
+            dimension_hidden - size of the hidden layer.
+        """
         
         self.dimension_input = self.vocabulary_size
         self.dimension_output = self.topics_size
@@ -100,6 +160,17 @@ class Base(ABC):
         self.bias_output = np.zeros((self.dimension_output, 1))
 
     def forward(self, inputs):
+
+        """
+        Performs a forward pass through the network.
+
+        Parameters:
+            inputs - list of input vectors.
+
+        Returns:
+            hidden - hidden state. 
+            output - output vector.
+        """
 
         hidden = np.zeros((self.weights_hidden_to_hidden.shape[0], 1))
 
@@ -117,6 +188,14 @@ class Base(ABC):
         return hidden, output
 
     def backward(self, gradient_output, learning_rate):
+
+        """
+        Performs backpropagation to update the network weights and biases.
+
+        Parameters:
+            gradient_output - gradient of the output.
+            learning_rate - learning rate for weight updates.
+        """
 
         size = len(self.recent_inputs)
 
@@ -149,9 +228,29 @@ class Base(ABC):
 
     @abstractmethod
     def learn(self, epochs, learning_rate, ngram_size):
+
+        """
+        Abstract method for training the network.
+
+        Parameters:
+            epochs - number of training epochs.
+            learning_rate - learning rate for weight updates.
+            ngram_size - size of the n-grams.
+        """
+
         pass
 
     def predict(self, value):
+
+        """
+        Predicts the output based on the input data.
+
+        Parameters:
+            value - input text.
+
+        Returns:
+            probabilities - predicted probabilities.
+        """
 
         inputs = self.convert_text(value)
         hidden, output = self.forward(inputs)
@@ -160,6 +259,13 @@ class Base(ABC):
         return probabilities
 
     def save(self, path):
+
+        """
+        Saves the model to a file.
+
+        Parameters:
+            path - path to .npz file.
+        """
 
         np.savez(path, 
         weights_input_to_hidden = self.weights_input_to_hidden, 
@@ -175,6 +281,13 @@ class Base(ABC):
         )
 
     def load(self, path):
+
+        """
+        Loads the model from a file.
+
+        Parameters:
+            path - path to .npz file.
+        """
 
         with np.load(path) as loaded:
 
