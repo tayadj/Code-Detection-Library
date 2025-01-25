@@ -34,11 +34,10 @@ keywords = {
     ]
 }
 
-
-
 def extract(text):
+
     """
-    Extract code blocks from a given text based on programming language keywords.
+    Extract code blocks from a given text based on programming language keywords and indentation.
 
     Parameters:
         text - input text containing potential code blocks.
@@ -56,15 +55,19 @@ def extract(text):
 
     flag = False
     brace_count = 0
+    indent_level = None
 
     for line in text.split('\n'):
 
-        if pattern_compiled.match(line) or brace_count > 0:
+        current_indent = len(line) - len(line.lstrip())
+
+        if pattern_compiled.match(line) or brace_count > 0 or (flag and current_indent > indent_level):
 
             if not flag:
 
                 flag = True
                 current_code = [line]
+                indent_level = current_indent
 
             else:
 
@@ -79,6 +82,7 @@ def extract(text):
                 code.append('\n'.join(current_code))
                 flag = False
                 brace_count = 0
+                indent_level = None
 
             current_code = []
 
@@ -87,4 +91,3 @@ def extract(text):
         code.append('\n'.join(current_code))
 
     return code
-
