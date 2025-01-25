@@ -14,11 +14,33 @@ warnings.filterwarnings("ignore")
 
 class TextClassifier(Base):
 
+    """
+    Text Classifier based on Base model class.
+    """
+
     def __init__(self, hidden_dimension=64, stops_coefficient=0.8, data_path='./data/source/text.csv'):
+
+        """
+        Initializes the class with the given parameters, default parameters specified for Text Classifier.
+
+        Parameters:
+            hidden_dimension - size of the hidden layer.
+            stops_coefficient - coefficient for determining stop words.
+            data_path - path to .csv file.
+        """
 
         super().__init__(hidden_dimension, stops_coefficient, data_path)
 
     def learn(self, epochs=100, learning_rate=0.001, ngram_size=5):
+
+        """
+        Method for training the network.
+
+        Parameters:
+            epochs - number of training epochs.
+            learning_rate - learning rate for weight updates.
+            ngram_size - size of the n-grams.
+        """
 
         for epoch in range (epochs):
 
@@ -56,8 +78,22 @@ class TextClassifier(Base):
 
     def save(self, path='./model/source/text_classifier.npz'):
 
+        """
+        Saves the model to a file, default parameters specified for Text Classifier.
+
+        Parameters:
+            path - path to .npz file.
+        """
+
         super().save(path)
 
     def load(self, path='./model/source/text_classifier.npz'):
+
+        """
+        Loads the model from a file, default parameters specified for Text Classifier.
+
+        Parameters:
+            path - path to .npz file.
+        """
 
         super().load(path)

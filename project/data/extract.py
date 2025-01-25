@@ -37,7 +37,7 @@ keywords = {
 def extract(text):
 
     """
-    Extract code blocks from a given text based on programming language keywords and indentation.
+    Extract code blocks from a given text based on programming language keywords.
 
     Parameters:
         text - input text containing potential code blocks.
