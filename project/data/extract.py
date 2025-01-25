@@ -4,7 +4,8 @@ keywords = {
     'python': [
         'False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 
         'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 
-        'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield', 'print'
+        'not', 'or', 'pass', 'raise', 'print', 'return', 'try', 'while', 'with', 'yield', 'int', 'float', 'str', 'list', 
+        'dict', 'set', 'tuple', 'bool', 'bytes', 'complex'
     ],
     'cpp': [
         'alignas', 'alignof', 'and', 'and_eq', 'asm', 'atomic_cancel', 'atomic_commit', 'atomic_noexcept', 'auto', 
@@ -16,23 +17,27 @@ keywords = {
         'protected', 'public', 'reflexpr', 'register', 'reinterpret_cast', 'requires', 'return', 'short', 'signed', 
         'sizeof', 'static', 'static_assert', 'static_cast', 'struct', 'switch', 'synchronized', 'template', 'this', 
         'thread_local', 'throw', 'true', 'try', 'typedef', 'typeid', 'typename', 'union', 'unsigned', 'using', 
-        'virtual', 'void', 'volatile', 'wchar_t', 'while', 'xor', 'xor_eq'
+        'virtual', 'vector', 'void', 'volatile', 'wchar_t', 'while', 'xor', 'xor_eq', 'int', 'float', 'double', 'char', 
+        'bool', 'void', 'short', 'long', 'unsigned'
     ],
     'java': [
         'abstract', 'assert', 'boolean', 'break', 'byte', 'case', 'catch', 'char', 'class', 'const', 'continue', 
         'default', 'do', 'double', 'else', 'enum', 'extends', 'final', 'finally', 'float', 'for', 'goto', 'if', 
         'implements', 'import', 'instanceof', 'int', 'interface', 'long', 'native', 'new', 'null', 'package', 
         'private', 'protected', 'public', 'return', 'short', 'static', 'strictfp', 'super', 'switch', 'synchronized', 
-        'this', 'throw', 'throws', 'transient', 'try', 'void', 'volatile', 'while'
+        'this', 'throw', 'throws', 'transient', 'try', 'void', 'volatile', 'while', 'int', 'float', 'double', 'char', 
+        'boolean', 'byte', 'short', 'long'
     ],
     'swift': [
         'associatedtype', 'class', 'deinit', 'enum', 'extension', 'fileprivate', 'func', 'import', 'init', 'inout', 
         'internal', 'let', 'open', 'operator', 'private', 'protocol', 'public', 'rethrows', 'static', 'struct', 
         'subscript', 'typealias', 'var', 'break', 'case', 'continue', 'default', 'defer', 'do', 'else', 'fallthrough', 
         'for', 'guard', 'if', 'in', 'repeat', 'return', 'switch', 'where', 'while', 'as', 'Any', 'catch', 'false', 
-        'is', 'nil', 'super', 'self', 'Self', 'throw', 'throws', 'true', 'try'
+        'is', 'nil', 'super', 'self', 'Self', 'throw', 'throws', 'true', 'try', 'Int', 'Float', 'Double', 'String', 
+        'Bool', 'Array', 'Dictionary', 'Set', 'Tuple'
     ]
 }
+
 
 def extract(text):
 
