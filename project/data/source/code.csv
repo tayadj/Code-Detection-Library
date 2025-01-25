@@ -283,3 +283,655 @@ fetchData { data in
 }
 print(""This will print before data is fetched"")
 ",Swift
+"#include <iostream>
+#include <math.h>
+ 
+int main()
+{
+    std::cout << ""abs(-3) = "" << std::abs(-3) << ""\n"";
+    std::cout << ""pow(-3, 2) = "" << std::pow(-3, 2) << ""\n"";
+    std::cout << ""round(-3.4) = "" << std::round(-3.2) << ""\n"";
+    std::cout << ""ceil(3.2) = "" << std::ceil(3.2) << ""\n"";
+    std::cout << ""floor(3.2) = "" << std::floor(3.2) << ""\n"";
+    std::cout << ""ceil(-3.2) = "" << std::ceil(-3.2) << ""\n"";
+    std::cout << ""floor(-3.2) = "" << std::floor(-3.2) << ""\n"";
+}",C++
+"import UIKit
+
+class CartViewController: UIViewController {
+    
+    @IBOutlet weak var cartView: UICollectionView!
+
+    @IBOutlet weak var costLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        cartView.dataSource = self
+        cartView.delegate = self
+        cartView.collectionViewLayout = UICollectionViewFlowLayout()
+        // Do any additional setup after loading the view.
+    }
+
+    @IBAction func orderButtonTap(_ sender: Any) {
+        let alert = UIAlertController(title: ""Are you sure?"", message: ""Want to order? All user info is located in your profile. So only thing you need is to confirm purchase"", preferredStyle: .alert)
+        let CancelAction = UIAlertAction(title: ""Cancel"", style: .default) {
+            (_) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        let OkAction = UIAlertAction(title: ""Confirm"", style: .default) {
+            (_) in let thankYouVC = self.storyboard?.instantiateViewController(identifier: ""ThankYouViewController"") as! ThankYouViewController
+            self.navigationController?.pushViewController(thankYouVC, animated: true)
+        }
+        alert.addAction(CancelAction)
+        alert.addAction(OkAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension CartViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        cart.count
+    }
+}
+
+extension CartViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 361, height: 124)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ""CartCollectionViewCell"", for: indexPath) as! CartCollectionViewCell
+        let productInCartInfo = cart[indexPath.item]
+        cell.imageView.image = productInCartInfo.exactImage
+        cell.nameLabel.text = productInCartInfo.exactName
+        cell.priceLabel.text = productInCartInfo.exactPrice
+        cell.indexPath = indexPath
+        cell.productsCollection = collectionView
+        cell.contentView.layer.borderWidth = 1.0
+        cell.contentView.layer.borderColor = UIColor.gray.cgColor
+        cell.contentView.layer.cornerRadius = 10
+        return cell
+    }
+}",Swift
+"package project;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+
+import forms.morphologicalMask;
+
+import java.awt.event.*;
+import java.awt.image.*;
+import java.io.*;
+import java.awt.*;
+
+public class application
+{
+	public static JFrame mainFrame 										= new JFrame();
+	public static JPanel sidePanel 										= new JPanel();
+	public static JButton sidePanelButton_chooseFile				 	= new JButton();
+	public static JButton sidePanelButton_linearContrast				= new JButton();
+	public static JButton sidePanelButton_homogeneousAveragingFilter 	= new JButton();
+	public static JButton sidePanelButton_gaussianFilter				= new JButton();
+	public static JButton sidePanelButton_laplacianOfGaussContrast  	= new JButton();
+	public static JButton sidePanelButton_medianFilter				  	= new JButton();
+	public static JButton sidePanelButton_maximumFilter				  	= new JButton();
+	public static JButton sidePanelButton_minimumFilter				  	= new JButton();
+	public static JButton sidePanelButton_morphologicalErosion			= new JButton();
+	public static JButton sidePanelButton_morphologicalDilation			= new JButton();
+	public static JLabel fileImage										= new JLabel();
+	
+	public static String filePath;
+	public static Image fileSourceImage;
+	public static BufferedImage fileBufferedImage;
+	
+	public static void connectResizeEvent() 
+	{
+		mainFrame.addComponentListener
+		(
+			new ComponentAdapter() 
+			{
+			    public void componentResized(ComponentEvent event) {
+			    	sidePanel.setBounds(20, 20, 260, mainFrame.getHeight() - 80);
+			    }
+			}
+		);
+	}
+	
+	public static void connectActionEvent()
+	{
+		mainFrame.addWindowListener
+		(
+			new WindowAdapter()
+			{
+			    @Override
+			    public void windowClosing(WindowEvent e) 
+			    {
+			        System.exit(0);
+			    }
+			}
+		);
+		
+		sidePanelButton_chooseFile.addActionListener
+		(
+			new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent event)
+				{
+					JFileChooser fileChooser = new JFileChooser();
+					int result = fileChooser.showDialog(null, ""Open image"");     
+					
+					if (result == JFileChooser.APPROVE_OPTION)
+					{
+					    try
+					    {
+					    	filePath = fileChooser.getSelectedFile().getPath();
+							fileSourceImage = ImageIO.read(new File(filePath));
+							fileBufferedImage = new BufferedImage(fileSourceImage.getWidth(null), fileSourceImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+						    fileBufferedImage = ImageIO.read(new File(filePath));
+					    }
+						catch (Exception error) 
+						{ 
+				            System.err.println(""Oops! "" + error);
+				            System.exit(0);
+				        }
+					   
+					    if (fileBufferedImage.getWidth() > fileBufferedImage.getHeight())
+					    {
+					    	fileImage.setBounds(340, 20 + (460 - (int) (fileBufferedImage.getHeight()*1.0/(fileBufferedImage.getWidth()*1.0/460)))/2, 460, (int) (fileBufferedImage.getHeight()*1.0/(fileBufferedImage.getWidth()*1.0/460)));
+					    	fileImage.setIcon(new ImageIcon(new ImageIcon(fileBufferedImage).getImage().getScaledInstance(460, (int) (fileBufferedImage.getHeight()*1.0/(fileBufferedImage.getWidth()*1.0/460)), java.awt.Image.SCALE_SMOOTH)));
+					    }
+					    else if (fileBufferedImage.getWidth() < fileBufferedImage.getHeight())
+					    {
+					    	fileImage.setBounds(340 + (460 - (int) (fileBufferedImage.getWidth()*1.0/(fileBufferedImage.getHeight()*1.0/460)))/2, 20, (int) (fileBufferedImage.getWidth()*1.0/(fileBufferedImage.getHeight()*1.0/460)), 460);
+					    	fileImage.setIcon(new ImageIcon(new ImageIcon(fileBufferedImage).getImage().getScaledInstance((int) (fileBufferedImage.getWidth()*1.0/(fileBufferedImage.getHeight()*1.0/460)), 460, java.awt.Image.SCALE_SMOOTH)));
+					    }
+					    else 
+					    {
+					    	fileImage.setBounds(340, 20, 460, 460);
+					    	fileImage.setIcon(new ImageIcon(new ImageIcon(fileBufferedImage).getImage().getScaledInstance(460, 460, java.awt.Image.SCALE_SMOOTH)));
+					    }
+					}
+				}
+			}
+		);
+		
+		sidePanelButton_linearContrast.addActionListener
+		(
+			new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent event)
+				{
+					try
+					{
+						project.processor(1, 0, null, filePath);
+					} 
+					catch (Exception error) 
+					{ 
+			            System.err.println(""Oops! "" + error);
+			            System.exit(0);
+			        }
+				}
+			}
+		);
+		
+		sidePanelButton_homogeneousAveragingFilter.addActionListener
+		(
+			new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent event)
+				{
+					try
+					{
+						project.processor(2, 1, null, filePath);
+					} 
+					catch (Exception error) 
+					{ 
+			            System.err.println(""Oops! "" + error);
+			            System.exit(0);
+			        }
+				}
+			}
+		);	
+		
+		sidePanelButton_gaussianFilter.addActionListener
+		(
+			new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent event)
+				{
+					try
+					{
+						project.processor(3, 2, null, filePath);
+					} 
+					catch (Exception error) 
+					{ 
+			            System.err.println(""Oops! "" + error);
+			            System.exit(0);
+			        }
+				}
+			}
+		);	
+		
+		sidePanelButton_laplacianOfGaussContrast.addActionListener
+		(
+			new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent event)
+				{
+					try
+					{
+						project.processor(4, 0, null, filePath);
+					} 
+					catch (Exception error) 
+					{ 
+			            System.err.println(""Oops! "" + error);
+			            System.exit(0);
+			        }
+				}
+			}
+		);
+		
+		sidePanelButton_medianFilter.addActionListener
+		(
+			new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent event)
+				{
+					try
+					{
+						project.processor(5, 0, null, filePath);
+					} 
+					catch (Exception error) 
+					{ 
+			            System.err.println(""Oops! "" + error);
+			            System.exit(0);
+			        }
+				}
+			}
+		);
+		
+		sidePanelButton_maximumFilter.addActionListener
+		(
+			new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent event)
+				{
+					try
+					{
+						project.processor(6, 0, null, filePath);
+					} 
+					catch (Exception error) 
+					{ 
+			            System.err.println(""Oops! "" + error);
+			            System.exit(0);
+			        }
+				}
+			}
+		);
+		
+		sidePanelButton_minimumFilter.addActionListener
+		(
+			new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent event)
+				{
+					try
+					{
+						project.processor(7, 0, null, filePath);
+					} 
+					catch (Exception error) 
+					{ 
+			            System.err.println(""Oops! "" + error);
+			            System.exit(0);
+			        }
+				}
+			}
+		);
+		
+		sidePanelButton_morphologicalErosion.addActionListener
+		(
+			new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent event)
+				{
+					try
+					{
+						morphologicalMask.evoke(8, filePath);
+					} 
+					catch (Exception error) 
+					{ 
+			            System.err.println(""Oops! "" + error);
+			            System.exit(0);
+			        }
+				}
+			}
+		);
+		
+		sidePanelButton_morphologicalDilation.addActionListener
+		(
+			new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent event)
+				{
+					try
+					{
+						morphologicalMask.evoke(9, filePath);
+					} 
+					catch (Exception error) 
+					{ 
+			            System.err.println(""Oops! "" + error);
+			            System.exit(0);
+			        }
+				}
+			}
+		);
+	}
+	
+	public static void connectMouseEvent()
+	{
+		sidePanelButton_chooseFile.addMouseListener
+		(
+				new MouseAdapter()
+				{
+					public void mouseEntered(MouseEvent event)
+					{
+						sidePanelButton_chooseFile.setBackground(new Color(0,0,0));
+						sidePanelButton_chooseFile.setForeground(new Color(254,230,0));
+					}
+					
+					public void mouseExited(MouseEvent event)
+					{
+						sidePanelButton_chooseFile.setBackground(new Color(254,230,0));
+						sidePanelButton_chooseFile.setForeground(new Color(0,0,0));
+					}
+				}
+		);
+		
+		sidePanelButton_linearContrast.addMouseListener
+		(
+				new MouseAdapter()
+				{
+					public void mouseEntered(MouseEvent event)
+					{
+						sidePanelButton_linearContrast.setBackground(new Color(0,0,0));
+						sidePanelButton_linearContrast.setForeground(new Color(254,230,0));
+					}
+					
+					public void mouseExited(MouseEvent event)
+					{
+						sidePanelButton_linearContrast.setBackground(new Color(254,230,0));
+						sidePanelButton_linearContrast.setForeground(new Color(0,0,0));
+					}
+				}
+		);
+		
+		sidePanelButton_homogeneousAveragingFilter.addMouseListener
+		(
+				new MouseAdapter()
+				{
+					public void mouseEntered(MouseEvent event)
+					{
+						sidePanelButton_homogeneousAveragingFilter.setBackground(new Color(0,0,0));
+						sidePanelButton_homogeneousAveragingFilter.setForeground(new Color(254,230,0));
+					}
+					
+					public void mouseExited(MouseEvent event)
+					{
+						sidePanelButton_homogeneousAveragingFilter.setBackground(new Color(254,230,0));
+						sidePanelButton_homogeneousAveragingFilter.setForeground(new Color(0,0,0));
+					}
+				}
+		);		
+		
+		sidePanelButton_gaussianFilter.addMouseListener
+		(
+				new MouseAdapter()
+				{
+					public void mouseEntered(MouseEvent event)
+					{
+						sidePanelButton_gaussianFilter.setBackground(new Color(0,0,0));
+						sidePanelButton_gaussianFilter.setForeground(new Color(254,230,0));
+					}
+					
+					public void mouseExited(MouseEvent event)
+					{
+						sidePanelButton_gaussianFilter.setBackground(new Color(254,230,0));
+						sidePanelButton_gaussianFilter.setForeground(new Color(0,0,0));
+					}
+				}
+		);
+		
+		sidePanelButton_laplacianOfGaussContrast.addMouseListener
+		(
+				new MouseAdapter()
+				{
+					public void mouseEntered(MouseEvent event)
+					{
+						sidePanelButton_laplacianOfGaussContrast.setBackground(new Color(0,0,0));
+						sidePanelButton_laplacianOfGaussContrast.setForeground(new Color(254,230,0));
+					}
+					
+					public void mouseExited(MouseEvent event)
+					{
+						sidePanelButton_laplacianOfGaussContrast.setBackground(new Color(254,230,0));
+						sidePanelButton_laplacianOfGaussContrast.setForeground(new Color(0,0,0));
+					}
+				}
+		);
+		
+		sidePanelButton_medianFilter.addMouseListener
+		(
+				new MouseAdapter()
+				{
+					public void mouseEntered(MouseEvent event)
+					{
+						sidePanelButton_medianFilter.setBackground(new Color(0,0,0));
+						sidePanelButton_medianFilter.setForeground(new Color(254,230,0));
+					}
+					
+					public void mouseExited(MouseEvent event)
+					{
+						sidePanelButton_medianFilter.setBackground(new Color(254,230,0));
+						sidePanelButton_medianFilter.setForeground(new Color(0,0,0));
+					}
+				}
+		);
+		
+		sidePanelButton_maximumFilter.addMouseListener
+		(
+				new MouseAdapter()
+				{
+					public void mouseEntered(MouseEvent event)
+					{
+						sidePanelButton_maximumFilter.setBackground(new Color(0,0,0));
+						sidePanelButton_maximumFilter.setForeground(new Color(254,230,0));
+					}
+					
+					public void mouseExited(MouseEvent event)
+					{
+						sidePanelButton_maximumFilter.setBackground(new Color(254,230,0));
+						sidePanelButton_maximumFilter.setForeground(new Color(0,0,0));
+					}
+				}
+		);
+		
+		sidePanelButton_minimumFilter.addMouseListener
+		(
+				new MouseAdapter()
+				{
+					public void mouseEntered(MouseEvent event)
+					{
+						sidePanelButton_minimumFilter.setBackground(new Color(0,0,0));
+						sidePanelButton_minimumFilter.setForeground(new Color(254,230,0));
+					}
+					
+					public void mouseExited(MouseEvent event)
+					{
+						sidePanelButton_minimumFilter.setBackground(new Color(254,230,0));
+						sidePanelButton_minimumFilter.setForeground(new Color(0,0,0));
+					}
+				}
+		);
+		
+		sidePanelButton_morphologicalErosion.addMouseListener
+		(
+				new MouseAdapter()
+				{
+					public void mouseEntered(MouseEvent event)
+					{
+						sidePanelButton_morphologicalErosion.setBackground(new Color(0,0,0));
+						sidePanelButton_morphologicalErosion.setForeground(new Color(254,230,0));
+					}
+					
+					public void mouseExited(MouseEvent event)
+					{
+						sidePanelButton_morphologicalErosion.setBackground(new Color(254,230,0));
+						sidePanelButton_morphologicalErosion.setForeground(new Color(0,0,0));
+					}
+				}
+		);
+		
+		sidePanelButton_morphologicalDilation.addMouseListener
+		(
+				new MouseAdapter()
+				{
+					public void mouseEntered(MouseEvent event)
+					{
+						sidePanelButton_morphologicalDilation.setBackground(new Color(0,0,0));
+						sidePanelButton_morphologicalDilation.setForeground(new Color(254,230,0));
+					}
+					
+					public void mouseExited(MouseEvent event)
+					{
+						sidePanelButton_morphologicalDilation.setBackground(new Color(254,230,0));
+						sidePanelButton_morphologicalDilation.setForeground(new Color(0,0,0));
+					}
+				}
+		);
+	}
+	
+	public static void showGUI()
+	{			
+		sidePanel.setBounds(20, 20, 260, 440);
+		sidePanel.setBackground(new Color(255,255,255));
+		sidePanel.setLayout(null);
+		sidePanel.add(sidePanelButton_chooseFile);
+		sidePanel.add(sidePanelButton_linearContrast);
+		sidePanel.add(sidePanelButton_homogeneousAveragingFilter);
+		sidePanel.add(sidePanelButton_gaussianFilter);
+		sidePanel.add(sidePanelButton_laplacianOfGaussContrast);	
+		sidePanel.add(sidePanelButton_medianFilter);
+		sidePanel.add(sidePanelButton_maximumFilter);
+		sidePanel.add(sidePanelButton_minimumFilter);	
+		sidePanel.add(sidePanelButton_morphologicalErosion);
+		sidePanel.add(sidePanelButton_morphologicalDilation);
+
+		connectResizeEvent();
+		connectActionEvent();
+		connectMouseEvent();
+	}
+
+}",Java
+"package algorithms;
+
+import javax.imageio.*;
+import javax.swing.ImageIcon;
+
+import project.application;
+
+import java.awt.image.*;
+import java.awt.*;
+import java.io.*;
+
+public class gaussianFilter
+{
+	
+	public static BufferedImage resultImage;
+	public static BufferedImage processingImage;
+	
+	public static BufferedImage process(Image sourceImage, File inputFile, int weight)
+	throws IOException
+	{
+		processingImage = new BufferedImage(sourceImage.getWidth(null), sourceImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		resultImage = new BufferedImage(sourceImage.getWidth(null), sourceImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		processingImage = ImageIO.read(inputFile);
+		
+		int valueA, valueR, valueG, valueB, valueRGB;
+		for (int x = 1; x < sourceImage.getWidth(null) - 1; ++x) 
+		{
+			for (int y = 1; y < sourceImage.getHeight(null) - 1; ++y)
+			{
+				valueA = 0;
+				valueR = 0;
+				valueG = 0; 
+				valueB = 0;
+				
+				for (int sector_x = x - 1; sector_x <= x + 1; ++sector_x)
+				{
+					for (int sector_y = y - 1; sector_y <= y + 1; ++sector_y)
+					{
+						if (sector_x == x && sector_y == y)
+						{
+							valueA += (((processingImage.getRGB(sector_x, sector_y)) >> 24) & 0xff) * weight * weight;
+							valueR += (((processingImage.getRGB(sector_x, sector_y)) >> 16) & 0xff) * weight * weight;
+							valueG += (((processingImage.getRGB(sector_x, sector_y)) >> 8) & 0xff) * weight * weight;
+							valueB += (((processingImage.getRGB(sector_x, sector_y))) & 0xff) * weight * weight;
+						}
+						else if (sector_x == x || sector_y == y)
+						{
+							valueA += (((processingImage.getRGB(sector_x, sector_y)) >> 24) & 0xff) * weight;
+							valueR += (((processingImage.getRGB(sector_x, sector_y)) >> 16) & 0xff) * weight;
+							valueG += (((processingImage.getRGB(sector_x, sector_y)) >> 8) & 0xff) * weight;
+							valueB += (((processingImage.getRGB(sector_x, sector_y))) & 0xff) * weight;
+						}
+						else
+						{
+							valueA += ((processingImage.getRGB(sector_x, sector_y)) >> 24) & 0xff;
+							valueR += ((processingImage.getRGB(sector_x, sector_y)) >> 16) & 0xff;
+							valueG += ((processingImage.getRGB(sector_x, sector_y)) >> 8) & 0xff;
+							valueB += ((processingImage.getRGB(sector_x, sector_y))) & 0xff;
+						}
+					}
+				}	
+				
+				valueA /= (2 + weight) * (2 + weight);
+				valueR /= (2 + weight) * (2 + weight);
+				valueG /= (2 + weight) * (2 + weight); 
+				valueB /= (2 + weight) * (2 + weight);
+				
+				valueRGB = (valueA << 24) | (valueR << 16) | (valueG << 8) | valueB;
+				resultImage.setRGB(x, y, valueRGB);				
+			}
+		}
+		
+		if (resultImage.getWidth() > resultImage.getHeight())
+	    {
+			application.fileImage.setBounds(340, 20 + (460 - (int) (resultImage.getHeight()*1.0/(resultImage.getWidth()*1.0/460)))/2, 460, (int) (resultImage.getHeight()*1.0/(resultImage.getWidth()*1.0/460)));
+			application.fileImage.setIcon(new ImageIcon(new ImageIcon(resultImage).getImage().getScaledInstance(460, (int) (resultImage.getHeight()*1.0/(resultImage.getWidth()*1.0/460)), java.awt.Image.SCALE_SMOOTH)));
+	    }
+	    else if (resultImage.getWidth() < resultImage.getHeight())
+	    {
+	    	application.fileImage.setBounds(340 + (460 - (int) (resultImage.getWidth()*1.0/(resultImage.getHeight()*1.0/460)))/2, 20, (int) (resultImage.getWidth()*1.0/(resultImage.getHeight()*1.0/460)), 460);
+	    	application.fileImage.setIcon(new ImageIcon(new ImageIcon(resultImage).getImage().getScaledInstance((int) (resultImage.getWidth()*1.0/(resultImage.getHeight()*1.0/460)), 460, java.awt.Image.SCALE_SMOOTH)));
+	    }
+	    else 
+	    {
+	    	application.fileImage.setBounds(340, 20, 460, 460);
+	    	application.fileImage.setIcon(new ImageIcon(new ImageIcon(resultImage).getImage().getScaledInstance(460, 460, java.awt.Image.SCALE_SMOOTH)));
+	    }
+		
+		return resultImage;
+	}
+
+}",Java
