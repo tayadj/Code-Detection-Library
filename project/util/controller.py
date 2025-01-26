@@ -11,6 +11,20 @@ class Controller:
     Controller library class.
     """
 
+    _instance = None
+
+    def __new__(self, *args, **kwargs):
+
+        """
+        Singleton pattern implementation.
+        """
+
+        if not self._instance:
+
+            self._instance = super(Controller, self).__new__(self, *args, **kwargs)
+
+        return self._instance
+
     def __init__(self):
 
         """
@@ -29,7 +43,7 @@ class Controller:
         Process the input text to extract and classify code segments.
 
         Parameters:
-            text (str): Input text containing potential code segments.
+            text - input text containing potential code segments.
         """
 
         segments = []
